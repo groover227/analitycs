@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static',filename='styles/login.css') }}"
+/>
+<!-- <a href="{{ url_for('index') }}" class="title_href">
+  <div class="title">FITNESS ANALYST</div>
+</a> -->
+<div class="login">
+  <div class="login__form">
+    <form action="" method="post" novalidate>
+      {{ form.hidden_tag() }}
+      <p class="login__label">
+        {{ form.username.label(text="Наименование организации") }}<br />
+        {{ form.username(size=32) }}<br />
+        {% for error in form.username.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p class="login__label">
+        {{ form.password.label(text="Пароль") }}<br />
+        {{ form.password(size=32) }}<br />
+        {% for error in form.password.errors %}
+        <span style="color: red">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p class="login__label login__label--remember">
+        {{ form.remember_me() }} {{ form.remember_me.label(text="Запомнить") }}
+      </p>
+      <p class="login__submit">{{ form.submit(value="Войти") }}</p>
+    </form>
+
+    <div class="login__register">
+      Нет аккаунта? <a href="{{ url_for('register') }}">Зарегистрируйтесь</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

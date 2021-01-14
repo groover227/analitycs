@@ -1,0 +1,75 @@
+{% extends "base.html" %} {% block content %}
+
+<link
+  rel="stylesheet"
+  href="{{ url_for('static',filename='styles/finance.css') }}"
+/>
+
+<div class="finance__header">
+  <h2 class="finance__title">Финансы | Доходы</h2>
+</div>
+
+<form
+  class="finance__form"
+  method="POST"
+  action='{{ url_for("writeClients") }}'
+>
+  <input
+    class="finance__form__item"
+    type="text"
+    name="Income from the sale of season tickets"
+    placeholder="Доходы с продажи абонементов"
+  />
+
+  <input
+    class="finance__form__item"
+    type="text"
+    name="Pool service income"
+    placeholder='Доходы с услуги "бассейн"'
+  />
+
+  <input
+    class="finance__form__item"
+    type="text"
+    name="Income from the service group boxing lessons"
+    placeholder='Доходы с услуги "групповые занятия боксом"'
+  />
+
+  <input
+    class="finance__form__item"
+    type="text"
+    name="Income from the service Individual lessons with a trainer"
+    placeholder='Доходы с услуги "Индивидуальные занятия с тренером"'
+  />
+
+  <input
+    class="finance__form__item"
+    type="text"
+    name="Equipment maintenance and repair costs"
+    placeholder="Расходы на содержание и починку оборудования"
+  />
+
+  <input
+    class="finance__form__item"
+    type="text"
+    name="Fitness center employee salaries"
+    placeholder="Расходы на содержание и починку оборудования"
+  />
+
+  <input
+    class="finance__form__item"
+    type="text"
+    name="Expenses for additional training courses for trainers"
+    placeholder="Расходы на дополнительные курсы для повышения квалификации тренеров"
+  />
+
+  <input
+    class="finance__form__item"
+    type="text"
+    name="Other expenses"
+    placeholder="Прочие расходы"
+  />
+
+  <button type="submit" class="finance__form__submit">Добавить</button>
+</form>
+{% endblock %}

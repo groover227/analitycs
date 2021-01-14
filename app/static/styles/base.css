@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.header {
+  padding: 15px 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #181818;
+}
+
+.logo_href {
+  text-decoration: none;
+}
+
+.logo {
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 56px;
+  color: #a4d0f8;
+}
+.logo:hover {
+  color: #1d89ed;
+  transition: 0.4s;
+}
+
+.main-nav {
+  display: flex;
+}
+
+.main-nav__item {
+  margin-right: 30px;
+  line-height: 21px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+}
+
+.main-nav__item:hover {
+  color: #1d89ed;
+  fill: #1d89ed;
+  transition: 0.4s;
+}
+
+.main-nav__img:hover {
+  fill: #1d89ed;
+  transition: 0.4s;
+}
+
+.user-nav {
+  display: flex;
+}
+
+.user-nav__item {
+  line-height: 21px;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.user-nav__item:hover {
+  color: #1d89ed;
+  transition: 0.4s;
+}
+
+.user-nav__img:hover {
+  fill: #1d89ed;
+  transition: 0.4s;
+}
