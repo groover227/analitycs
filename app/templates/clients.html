@@ -3,99 +3,300 @@
   rel="stylesheet"
   href="{{ url_for('static',filename='styles/clients.css') }}"
 />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
-<div class="clients__header">
-  <h2 class="clients__title">Клиенты | Добавление клиента</h2>
-</div>
-<form
-  class="clients__form"
-  method="POST"
-  action='{{ url_for("writeClients") }}'
+<div class="tablinks">
+  <p
+  class="tablink"
+  onclick="openPage('Analitycs', this)"
+  id="defaultOpen"
 >
-  <input
-    class="clients__form__item"
-    type="text"
-    name="surname"
-    placeholder="Фамилия"
-  />
+  Аналитика
+</p>
+<p class="tablink" onclick="openPage('AddClient', this)">
+  Добавить клиента
+</p>
+</div>
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="name"
-    placeholder="Имя"
-  />
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="patronymic"
-    placeholder="Отчество"
-  />
+<div id="Analitycs" class="tabcontent">
+  <h2 class="clients__title">Клиенты | Аналитика</h2>
+  <div class="performance__block">
+    <div class="performance__block__item">
+      Количество клиентов<span>2557</span>
+    </div>
+    <div class="performance__block__item">Новые клиенты<span>78</span></div>
+    <div class="performance__block__item">
+      Активные клиенты<span>1568</span>
+    </div>
+    <div class="performance__block__item">
+      Неактивные клиенты<span>989</span>
+    </div>
+  </div>
+  <div class="graphs">
+    <canvas id="mfChart" width="450px" height="320px"></canvas>
+    <canvas id="agesChart" width="450px" height="320px"></canvas>
+  </div>
+  <canvas id="thirdChart" width="1008px" height="450px"></canvas>
+</div>
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="age"
-    placeholder="Возраст"
-  />
+<div id="AddClient" class="tabcontent">
+  <h2 class="clients__title">Клиенты | Добавление клиента</h2>
+  <form
+    class="clients__form"
+    method="POST"
+    action='{{ url_for("writeClients") }}'
+  >
+    <input
+      class="clients__form__item"
+      type="text"
+      name="surname"
+      placeholder="Фамилия"
+    />
 
-  <input class="clients__form__item" type="text" name="sex" placeholder="Пол" />
+    <input
+      class="clients__form__item"
+      type="text"
+      name="name"
+      placeholder="Имя"
+    />
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="email"
-    placeholder="Email"
-  />
+    <input
+      class="clients__form__item"
+      type="text"
+      name="patronymic"
+      placeholder="Отчество"
+    />
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="telephone number"
-    placeholder="Телефон"
-  />
+    <input
+      class="clients__form__item"
+      type="text"
+      name="age"
+      placeholder="Возраст"
+    />
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="data of birth"
-    placeholder="День рождения"
-  />
+    <input
+      class="clients__form__item"
+      type="text"
+      name="sex"
+      placeholder="Пол"
+    />
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="subscription name"
-    placeholder="Название абонемента"
-  />
+    <input
+      class="clients__form__item"
+      type="text"
+      name="email"
+      placeholder="Email"
+    />
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="subscription price"
-    placeholder="Цена абонемента"
-  />
+    <input
+      class="clients__form__item"
+      type="text"
+      name="telephone number"
+      placeholder="Телефон"
+    />
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="Subscription purchase date"
-    placeholder="Дата приобретения абонемента"
-  />
+    <input
+      class="clients__form__item"
+      type="text"
+      name="data of birth"
+      placeholder="День рождения"
+    />
 
-  <input
-    class="clients__form__item"
-    type="text"
-    name="Expiration date of the subscription"
-    placeholder="Дата истечения срока действия абонемента"
-  />
+    <input
+      class="clients__form__item"
+      type="text"
+      name="subscription name"
+      placeholder="Название абонемента"
+    />
 
-  <!-- <div class="clients__form__item">
-    Согласие на рассылку
-    <input type="checkbox" name="Expiration date of the subscription" />
-  </div> -->
+    <input
+      class="clients__form__item"
+      type="text"
+      name="subscription price"
+      placeholder="Цена абонемента"
+    />
 
-  <button type="submit" class="clients__form__submit">Добавить клиента</button>
-</form>
-{% endblock %}
+    <input
+      class="clients__form__item"
+      type="text"
+      name="Subscription purchase date"
+      placeholder="Дата приобретения абонемента"
+    />
+
+    <input
+      class="clients__form__item"
+      type="text"
+      name="Expiration date of the subscription"
+      placeholder="Дата истечения срока действия абонемента"
+    />
+    <button type="submit" class="clients__form__submit">
+      Добавить клиента
+    </button>
+  </form>
+</div>
+
+  <script>
+    // tabs
+    function openPage(pageName, elmnt) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablink");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.color = "";
+      }
+      document.getElementById(pageName).style.display = "block";
+      elmnt.style.color = "#1D89ED"
+    }
+    document.getElementById("defaultOpen").click();
+
+
+    // mens and females chart
+    var ctx = document.getElementById("mfChart");
+    ctx.style.backgroundColor = "#ffffff";
+    var myChart = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: ["Женщин (%)", "Мужчин (%)"],
+        datasets: [
+          {
+            data: [35, 65],
+            backgroundColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 0.2)"],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        tooltips: {
+          titleAlign: "left",
+        },
+        responsive: false,
+        scales: {
+          yAxes: [
+            {
+              display: false,
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "Соотношение мужчин и женщин",
+          textAlign: "left",
+          position: "top",
+          align: "start",
+          fontSize: 18,
+          fontColor: "#000000",
+        },
+      },
+    });
+
+    //ages Chart
+    var ctx = document.getElementById("agesChart");
+    ctx.style.backgroundColor = "#ffffff";
+    var myChart = new Chart(ctx, {
+      type: "pie",
+      data: {
+        labels: ["18-25", "25-30", "30-35", "35+"],
+        datasets: [
+          {
+            data: [20, 15, 12, 9],
+            backgroundColor: ["#4476F4", "#F7FB38", "#45D15B", "#F31D51"],
+            borderColor: [],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        tooltips: {
+          titleAlign: "left",
+        },
+        responsive: false,
+        scales: {
+          yAxes: [
+            {
+              display: false,
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "Cоотношения возрастов клиентов",
+          textAlign: "left",
+          position: "top",
+          align: "start",
+          fontSize: 18,
+          fontColor: "#000000",
+        },
+      },
+    });
+
+    //third Chart
+    var ctx = document.getElementById("thirdChart");
+    ctx.style.backgroundColor = "#ffffff";
+    var myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [
+          "Январь",
+          "Февраль",
+          "Март",
+          "Апрель",
+          "Май",
+          "Июнь",
+          "Июль",
+          "Август",
+          "Сентябрь",
+          "Октябрь",
+          "Ноябрь",
+          "Декабрь",
+        ],
+        datasets: [
+          {
+            data: [50, 60, 30, 55, 60, 80, 40, 60, 64, 70, 77, 80, 92],
+            backgroundColor: "#769BFA",
+            borderColor: [],
+            borderWidth: 1,
+            label: "Приток",
+          },
+          {
+            data: [20, 30, 25, 44, 45, 85, 30, 45, 60, 62, 66, 70, 75],
+            backgroundColor: "#FF5454",
+            label: "Отток",
+          },
+        ],
+      },
+      options: {
+        tooltips: {
+          titleAlign: "left",
+        },
+        responsive: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                suggestedMin: 50,
+                suggestedMax: 120,
+              },
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "Приток и отток клиентов",
+          textAlign: "left",
+          position: "top",
+          align: "start",
+          fontSize: 18,
+          fontColor: "#000000",
+        },
+      },
+    });
+  </script>
+
+  {% endblock %}
+</div>

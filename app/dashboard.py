@@ -6,7 +6,7 @@ import dash.dependencies
 import pandas as pd
 import dash_html_components as html
 
-data = pd.read_csv("C:\\Users\\Александр\\PycharmProjects\\microblog-0.5\\AlexanderEx13\\AlexanderEx13_clients.csv", encoding='windows-1251')
+data = pd.read_csv("C:\\Users\\Maks\\PycharmProjects\\microblog-0.5\\AlexanderEx13\\AlexanderEx13_clients.csv", encoding='windows-1251')
 print(data.head())
 
 html.Div(children=[

@@ -1,5 +1,6 @@
 body {
   background-color: #e5e5e5;
+  padding-bottom: 50px;
 }
 
 .clients__title {
@@ -7,11 +8,106 @@ body {
   margin: 0;
 }
 
+/* Tabs */
+
+.tablinks {
+  position: absolute;
+  margin-top: 25px;
+  left: 500px;
+}
+
+.tablink {
+  color: #181818;
+  display: inline;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+}
+
+.tablink:hover {
+  color: #1d89ed;
+}
+.tabcontent {
+  display: none;
+}
+
+/* Analitycs */
+
+.clients__title {
+  padding: 20px 70px;
+  margin: 0;
+}
+
+.performance__block {
+  position: absolute;
+  top: 140px;
+  left: 1090px;
+  margin-left: 70px;
+  max-width: 1400px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.performance__block__item {
+  margin-top: 20px;
+  margin-bottom: 55px;
+  padding-top: 16px;
+  text-align: center;
+  width: 300px;
+  height: 125px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.performance__block__item:hover {
+  transform: translate(-5px, -10px);
+  transition: 0.5s;
+}
+
+.performance__block__item span {
+  display: block;
+  font-size: 40px;
+}
+
+.graphs {
+  display: flex;
+}
+
+#mfChart {
+  margin-left: 70px;
+  margin-right: 30px;
+  padding: 19px 29px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#agesChart {
+  padding: 19px 29px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+#thirdChart {
+  padding: 19px;
+  margin-left: 70px;
+  margin-top: 25px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Add client tab */
+
 .clients__form {
   text-align: center;
   margin: 0px 70px;
   padding: 20px;
   background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .clients__form__item {

@@ -4,72 +4,271 @@
   rel="stylesheet"
   href="{{ url_for('static',filename='styles/finance.css') }}"
 />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
-<div class="finance__header">
-  <h2 class="finance__title">Финансы | Доходы</h2>
+<div class="tablinks">
+  <p class="tablink" onclick="openPage('Analitycs', this)" id="defaultOpen">
+    Аналитика
+  </p>
+  <p class="tablink" onclick="openPage('AddConsumption', this)">
+    Добавить информацию о доходах и расходах
+  </p>
 </div>
 
-<form
-  class="finance__form"
-  method="POST"
-  action='{{ url_for("writeClients") }}'
->
-  <input
-    class="finance__form__item"
-    type="text"
-    name="Income from the sale of season tickets"
-    placeholder="Доходы с продажи абонементов"
-  />
+<div id="Analitycs" class="tabcontent">
+  <h2 class="finance__title">Финансы | Аналитика</h2>
+  <canvas id="profitChart" width="1350px" height="320px"></canvas>
+  <canvas id="consumptionsChart" width="1350px" height="320px"></canvas>
+</div>
 
-  <input
-    class="finance__form__item"
-    type="text"
-    name="Pool service income"
-    placeholder='Доходы с услуги "бассейн"'
-  />
+<div id="AddConsumption" class="tabcontent">
+  <h2 class="finance__title">Финансы | Добавление доходов и расходов</h2>
+  <form
+    class="finance__form"
+    method="POST"
+    action='{{ url_for("writeClients") }}'
+  >
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Income from the sale of season tickets"
+      placeholder="Доходы с продажи абонементов"
+    />
 
-  <input
-    class="finance__form__item"
-    type="text"
-    name="Income from the service group boxing lessons"
-    placeholder='Доходы с услуги "групповые занятия боксом"'
-  />
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Pool service income"
+      placeholder='Доходы с услуги "бассейн"'
+    />
 
-  <input
-    class="finance__form__item"
-    type="text"
-    name="Income from the service Individual lessons with a trainer"
-    placeholder='Доходы с услуги "Индивидуальные занятия с тренером"'
-  />
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Income from the service group boxing lessons"
+      placeholder='Доходы с услуги "групповые занятия боксом"'
+    />
 
-  <input
-    class="finance__form__item"
-    type="text"
-    name="Equipment maintenance and repair costs"
-    placeholder="Расходы на содержание и починку оборудования"
-  />
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Income from the service Individual lessons with a trainer"
+      placeholder='Доходы с услуги "Индивидуальные занятия с тренером"'
+    />
 
-  <input
-    class="finance__form__item"
-    type="text"
-    name="Fitness center employee salaries"
-    placeholder="Расходы на содержание и починку оборудования"
-  />
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Equipment maintenance and repair costs"
+      placeholder="Расходы на содержание и починку оборудования"
+    />
 
-  <input
-    class="finance__form__item"
-    type="text"
-    name="Expenses for additional training courses for trainers"
-    placeholder="Расходы на дополнительные курсы для повышения квалификации тренеров"
-  />
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Fitness center employee salaries"
+      placeholder="Расходы на содержание и починку оборудования"
+    />
 
-  <input
-    class="finance__form__item"
-    type="text"
-    name="Other expenses"
-    placeholder="Прочие расходы"
-  />
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Expenses for additional training courses for trainers"
+      placeholder="Расходы на дополнительные курсы для повышения квалификации тренеров"
+    />
 
-  <button type="submit" class="finance__form__submit">Добавить</button>
-</form>
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Other expenses"
+      placeholder="Прочие расходы"
+    />
+
+    <button type="submit" class="finance__form__submit">Применить</button>
+  </form>
+</div>
+
+<script>
+  // tabs
+  function openPage(pageName, elmnt) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.color = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.color = "#1D89ED";
+  }
+  document.getElementById("defaultOpen").click();
+
+  //Profit Chart
+  var ctx = document.getElementById("profitChart");
+  ctx.style.backgroundColor = "#ffffff";
+
+  var profitChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: [
+        "Январь",
+        "Февраль",
+        "Март",
+        "Апрель",
+        "Май",
+        "Июнь",
+        "Июль",
+        "Август",
+        "Сентябрь",
+        "Октябрь",
+        "Ноябрь",
+        "Декабрь",
+      ],
+      datasets: [
+        {
+          label: "Доходы (в тыс. руб.)",
+          data: [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140],
+          backgroundColor: [
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+          ],
+          borderColor: [
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+              suggestedMin: 0,
+              suggestedMax: 200,
+            },
+          },
+        ],
+      },
+      title: {
+        display: true,
+        text: "График прибыли",
+        textAlign: "left",
+        position: "top",
+        align: "start",
+        fontSize: 24,
+        fontColor: "#000000",
+      },
+    },
+  });
+
+  // Consumptions Chart
+  //Profit Chart
+  var ctx = document.getElementById("consumptionsChart");
+  ctx.style.backgroundColor = "#ffffff";
+
+  var profitChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: [
+        "Январь",
+        "Февраль",
+        "Март",
+        "Апрель",
+        "Май",
+        "Июнь",
+        "Июль",
+        "Август",
+        "Сентябрь",
+        "Октябрь",
+        "Ноябрь",
+        "Декабрь",
+      ],
+      datasets: [
+        {
+          label: "Убытки (в тыс. руб.)",
+          data: [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140],
+          backgroundColor: [
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+          ],
+          borderColor: [
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+            "#769BFA",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: false,
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+              suggestedMin: 0,
+              suggestedMax: 200,
+            },
+          },
+        ],
+      },
+      title: {
+        display: true,
+        text: "График убытков",
+        textAlign: "left",
+        position: "top",
+        align: "start",
+        fontSize: 24,
+        fontColor: "#000000",
+      },
+    },
+  });
+</script>
+
 {% endblock %}

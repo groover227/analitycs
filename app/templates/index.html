@@ -1,5 +1,168 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<div class="index">
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static',filename='styles/index.css') }}"
+  />
+  <h1 class="index__title">Аналитика</h1>
+  <div class="performance__block1">
+    <div class="performance__block1__item">Доходы<span>112.620₽</span></div>
+    <div class="performance__block1__item">Расходы<span>56.623₽</span></div>
+    <div class="performance__block1__item">
+      Итоговый доход<span>55.997₽</span>
+    </div>
+    <div class="performance__block1__item">
+      Количество клиентов<span>2557</span>
+    </div>
+  </div>
+  <div class="performance__block2">
+    <div class="performance__block2__item">
+      Количество тренировок<span>126</span>
+    </div>
+    <div class="performance__block2__item">
+      Количество абонементов<span>68</span>
+    </div>
+    <div class="performance__block2__item">
+      Количество посещений<span>1280</span>
+    </div>
+    <div class="performance__block2__item">
+      Количество абонементов<span>70%</span>
+    </div>
+  </div>
+  <canvas id="profitChart" width="1035px" height="320px"></canvas>
+  <canvas id="workloadChart" width="1035px" height="320px"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+  <script>
+    //Profit Chart
+    var ctx = document.getElementById("profitChart");
+    ctx.style.backgroundColor = "#ffffff";
 
-{% block content %}
-    <h1>Добро пожаловать, {{ current_user.username }}!</h1>
+    var profitChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [
+          "Январь",
+          "Февраль",
+          "Март",
+          "Апрель",
+          "Май",
+          "Июнь",
+          "Июль",
+          "Август",
+          "Сентябрь",
+          "Октябрь",
+          "Ноябрь",
+          "Декабрь",
+        ],
+        datasets: [
+          {
+            label: "Доходы (в тыс. руб.)",
+            data: [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140],
+            backgroundColor: [
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+            ],
+            borderColor: [
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+              "#769BFA",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        responsive: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                suggestedMin: 0,
+                suggestedMax: 200,
+              },
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "График прибыли",
+          textAlign: "left",
+          position: "top",
+          align: "start",
+          fontSize: 24,
+          fontColor: "#000000",
+        },
+      },
+    });
+
+    // workloadChart
+    var ctx = document.getElementById("workloadChart");
+    ctx.style.backgroundColor = "#ffffff";
+    var myChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: ["6:00", "9:00", "12:00", "15:00", "18:00", "21:00", "24:00"],
+        datasets: [
+          {
+            label: "Загруженность зала (в процентах)",
+            data: [30, 70, 66, 70, 60, 40, 10],
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+            ],
+            borderColor: ["rgba(255, 99, 132, 1)"],
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        responsive: false,
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true,
+                suggestedMin: 50,
+                suggestedMax: 100,
+              },
+            },
+          ],
+        },
+        title: {
+          display: true,
+          text: "График загруженности зала",
+          textAlign: "left",
+          position: "top",
+          align: "start",
+          fontSize: 24,
+          fontColor: "#000000",
+        },
+      },
+    });
+  </script>
+</div>
 {% endblock %}

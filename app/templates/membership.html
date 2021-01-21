@@ -1,1 +1,59 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block content %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static',filename='styles/membership.css') }}"
+/>
+
+<h1 class="membership__title">Тренировки | Аналитика</h1>
+<canvas id="membershipChart" width="670px" height="450px"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script>
+  // workoutsChart
+  var ctx = document.getElementById("membershipChart");
+  ctx.style.backgroundColor = "#ffffff";
+  var myChart = new Chart(ctx, {
+    type: "horizontalBar",
+    data: {
+      labels: [
+        "Абонемент 1",
+        "Абонемент 2",
+        "Абонемент 3",
+        "Абонемент 4",
+        "Абонемент 5",
+        "Абонемент 6",
+      ],
+      datasets: [
+        {
+          label: "Количество проданных абонементов",
+          data: [101, 56, 21, 80, 54, 75],
+          backgroundColor: "#769BFA",
+        },
+      ],
+    },
+    options: {
+      responsive: false,
+      scales: {
+        xAxes: [
+          {
+            ticks: {
+              beginAtZero: true,
+              suggestedMin: 0,
+              suggestedMax: 140,
+            },
+          },
+        ],
+      },
+      title: {
+        display: true,
+        text: "Количество проданных абонементов",
+        textAlign: "left",
+        position: "top",
+        align: "start",
+        fontSize: 24,
+        fontColor: "#000000",
+      },
+    },
+  });
+</script>
+{% endblock %}

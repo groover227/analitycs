@@ -54,7 +54,7 @@ body {
   transition: 0.4s;
 }
 
-.main-nav__img:hover {
+.main-nav__img svg:hover {
   fill: #1d89ed;
   transition: 0.4s;
 }

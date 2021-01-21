@@ -85,7 +85,7 @@ def writeClients():
         with open('AlexanderEx13_clients.csv', 'a') as f:
             f.write(",".join([surname, name, patronymic, age, sex, email, telephone, birth, subscription, price, purchase_date, end, soglasie]) + '\n')
             f.close()
-        return "Информация о новом клиенте добавлена!"
+        return "Информация о новом клиенте успешно добавлена!"
     elif request.method == "GET":
         return render_template('clients.html', title='Клиенты')
 
