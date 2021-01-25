@@ -23,11 +23,21 @@
 
 <div id="AddConsumption" class="tabcontent">
   <h2 class="finance__title">Финансы | Добавление доходов и расходов</h2>
-  <form
-    class="finance__form"
-    method="POST"
-    action='{{ url_for("writeClients") }}'
-  >
+  <form class="finance__form" method="POST" action='{{ url_for("finance") }}'>
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Month"
+      placeholder="Месяц"
+    />
+
+    <input
+      class="finance__form__item"
+      type="text"
+      name="Year"
+      placeholder="Год"
+    />
+
     <input
       class="finance__form__item"
       type="text"

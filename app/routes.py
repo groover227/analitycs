@@ -82,10 +82,10 @@ def writeClients():
         end = request.form["Expiration date of the subscription"]
         soglasie = request.form["Expiration date of the subscription"]
 
-        with open('AlexanderEx13_clients.csv', 'a') as f:
+        with open('AlexanderEx14\\AlexanderEx14_clients.csv', 'a', encoding="utf8") as f:
             f.write(",".join([surname, name, patronymic, age, sex, email, telephone, birth, subscription, price, purchase_date, end, soglasie]) + '\n')
             f.close()
-        return "Информация о новом клиенте успешно добавлена!"
+        return "Информация о новом клиенте добавлена!"
     elif request.method == "GET":
         return render_template('clients.html', title='Клиенты')
 
@@ -93,6 +93,8 @@ def writeClients():
 @app.route('/finance', methods=['GET', 'POST'])
 def finance():
     if request.method == 'POST':
+        Month = request.form["Month"]
+        Year = request.form["Year"]
         Income_from_the_sale_of_season_tickets = request.form["Income from the sale of season tickets"]
         Pool_service_income = request.form["Pool service income"]
         Income_from_the_service_group_boxing_lessons = request.form["Income from the service group boxing lessons"]
@@ -101,8 +103,17 @@ def finance():
         Fitness_center_employee_salaries = request.form["Fitness center employee salaries"]
         Expenses_for_additional_training_courses_for_trainers = request.form["Expenses for additional training courses for trainers"]
         Other_expenses = request.form["Other expenses"]
-        with open('AlexanderEx13_finances.csv', 'a') as f:
-            f.write(",".join([Income_from_the_sale_of_season_tickets, Pool_service_income, Income_from_the_service_group_boxing_lessons, Income_from_the_service_Individual_lessons_with_a_trainer, Equipment_maintenance_and_repair_costs, Fitness_center_employee_salaries, Expenses_for_additional_training_courses_for_trainers, Other_expenses]) + '\n')
+        with open('AlexanderEx14\\AlexanderEx14_finances.csv', 'a', encoding="utf8") as f:
+            f.write(",".join([Month,
+                              Year,
+                              Income_from_the_sale_of_season_tickets,
+                              Pool_service_income,
+                              Income_from_the_service_group_boxing_lessons,
+                              Income_from_the_service_Individual_lessons_with_a_trainer,
+                              Equipment_maintenance_and_repair_costs,
+                              Fitness_center_employee_salaries,
+                              Expenses_for_additional_training_courses_for_trainers,
+                              Other_expenses]) + '\n')
             f.close()
         return "Информация о финансах добавлена!"
     elif request.method == "GET":
