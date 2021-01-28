@@ -8,6 +8,8 @@ import os
 import csv
 import json
 
+print(os.getcwd())
+
 
 def countMalesAndFemales(persons):
     num_males = 0
