@@ -250,14 +250,14 @@ def writeClients():
         end = request.form["Expiration date of the subscription"]
         soglasie = request.form["Expiration date of the subscription"]
 
-        with open('AlexanderEx14\\AlexanderEx14_clients.csv', 'a', encoding="utf8") as f:
+        with open('AlexanderEx14_clients.csv', 'a', encoding="utf8") as f:
             f.write(",".join([surname, name, patronymic, age, sex, email, telephone, birth, subscription, price, purchase_date, end, soglasie]) + '\n')
             f.close()
         return render_template('clients_success.html', title="Клиент успешно добавлен")
     elif request.method == "GET":
 
         # Get data of clients from database
-        with open('AlexanderEx14\\AlexanderEx14_clients.csv', newline='', encoding="utf8") as csvfile:
+        with open('AlexanderEx14_clients.csv', newline='', encoding="utf8") as csvfile:
             clients_data = list(csv.reader(csvfile))
 
         cellData = json.dumps({'amount_of_clients': getNumOfClients(clients_data), 'new_clients_per_month': getNumOfClientsByMonth(clients_data)[0]})
@@ -282,7 +282,7 @@ def finance():
         Fitness_center_employee_salaries = request.form["Fitness center employee salaries"]
         Expenses_for_additional_training_courses_for_trainers = request.form["Expenses for additional training courses for trainers"]
         Other_expenses = request.form["Other expenses"]
-        with open('AlexanderEx14\\AlexanderEx14_finances.csv', 'a', encoding="utf8") as f:
+        with open('AlexanderEx14_finances.csv', 'a', encoding="utf8") as f:
             f.write(",".join([Month,
                               Year,
                               Income_from_the_sale_of_season_tickets,
@@ -298,7 +298,7 @@ def finance():
     elif request.method == "GET":
 
         #Get data of finances from database
-        with open('AlexanderEx14\\AlexanderEx14_finances.csv', newline='', encoding="utf8") as csvfile:
+        with open('AlexanderEx14_finances.csv', newline='', encoding="utf8") as csvfile:
             finance_data = list(csv.reader(csvfile))
 
         profitAndDamagesData = getProfitAndDamages(finance_data)
