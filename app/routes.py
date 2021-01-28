@@ -7,8 +7,8 @@ from app.models import User
 import os
 import csv
 import json
+import urllib
 
-print(os.getcwd())
 
 
 def countMalesAndFemales(persons):
