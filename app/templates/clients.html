@@ -16,15 +16,17 @@
   <h2 class="clients__title">Клиенты | Аналитика</h2>
   <div class="performance__block">
     <div class="performance__block__item">
-      Количество клиентов<span>2557</span>
+      Количество клиентов<span id="num_of_clients">2557</span>
     </div>
-    <div class="performance__block__item">Новые клиенты<span>78</span></div>
     <div class="performance__block__item">
+      Новых клиентов за месяц<span id="new_per_month">78</span>
+    </div>
+    <!-- <div class="performance__block__item">
       Активные клиенты<span>1568</span>
     </div>
     <div class="performance__block__item">
       Неактивные клиенты<span>989</span>
-    </div>
+    </div> -->
   </div>
   <div class="graphs">
     <canvas id="mfChart" width="450px" height="320px"></canvas>
@@ -146,18 +148,25 @@
   }
   document.getElementById("defaultOpen").click();
 
-  // Read DataBase
+  const cellData = {{ cellData | safe }};
+  const mfData = {{ mfData | safe }};
+  const agesData = {{ agesData | safe }};
+  const accumulateData = {{ accumulateData | safe }};
+
+  const num_of_clients_cell = document.getElementById('num_of_clients');
+  const new_clients_per_month_cell = document.getElementById('new_per_month');
+  num_of_clients_cell.innerText = cellData.amount_of_clients;
+  new_clients_per_month_cell.innerText = cellData.new_clients_per_month;
 
   // mens and females chart
   var ctx = document.getElementById("mfChart");
-  ctx.style.backgroundColor = "#ffffff";
   var myChart = new Chart(ctx, {
     type: "pie",
     data: {
       labels: ["Женщин (%)", "Мужчин (%)"],
       datasets: [
         {
-          data: [35, 65],
+          data: [mfData.female_percantage, mfData.male_percantage],
           backgroundColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
           borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 0.2)"],
           borderWidth: 1,
@@ -190,14 +199,13 @@
 
   //ages Chart
   var ctx = document.getElementById("agesChart");
-  ctx.style.backgroundColor = "#ffffff";
   var myChart = new Chart(ctx, {
     type: "pie",
     data: {
       labels: ["18-25", "25-30", "30-35", "35+"],
       datasets: [
         {
-          data: [20, 15, 12, 9],
+          data: [agesData.group1, agesData.group2, agesData.group3, agesData.group4],
           backgroundColor: ["#4476F4", "#F7FB38", "#45D15B", "#F31D51"],
           borderColor: [],
           borderWidth: 1,
@@ -230,7 +238,6 @@
 
   //third Chart
   var ctx = document.getElementById("thirdChart");
-  ctx.style.backgroundColor = "#ffffff";
   var myChart = new Chart(ctx, {
     type: "bar",
     data: {
@@ -250,17 +257,12 @@
       ],
       datasets: [
         {
-          data: [50, 60, 30, 55, 60, 80, 40, 60, 64, 70, 77, 80, 92],
+          data: [accumulateData.Jan, accumulateData.Feb, accumulateData.Mar, accumulateData.Apr, accumulateData.May, accumulateData.Jun, accumulateData.Jul, accumulateData.Aug, accumulateData.Sep, accumulateData.Oct, accumulateData.Nov, accumulateData.Dec],
           backgroundColor: "#769BFA",
           borderColor: [],
           borderWidth: 1,
           label: "Приток",
-        },
-        {
-          data: [20, 30, 25, 44, 45, 85, 30, 45, 60, 62, 66, 70, 75],
-          backgroundColor: "#FF5454",
-          label: "Отток",
-        },
+        }
       ],
     },
     options: {
@@ -273,15 +275,15 @@
           {
             ticks: {
               beginAtZero: true,
-              suggestedMin: 50,
-              suggestedMax: 120,
+              suggestedMin: 0,
+              suggestedMax: 10,
             },
           },
         ],
       },
       title: {
         display: true,
-        text: "Приток и отток клиентов",
+        text: "Приток клиентов",
         textAlign: "left",
         position: "top",
         align: "start",
