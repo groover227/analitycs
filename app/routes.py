@@ -309,6 +309,74 @@ def finance():
 
         return render_template('finance.html', title='Финансы', profitData=profitData, damagesData=damagesData)
 
+@app.route('/api', methods=['GET', 'POST'])
+def mobile():
+    with open('AlexanderEx14_clients.csv', newline='', encoding="utf8") as csvfile:
+            clients_data = list(csv.reader(csvfile))
+
+    with open('AlexanderEx14_finances.csv', newline='', encoding="utf8") as csvfile:
+            finance_data = list(csv.reader(csvfile))
+
+    api_data = json.dumps({
+        'clients_data': {
+            'percentage_data': {
+                'male_percantage': countMalesAndFemales(clients_data)[0], 
+                'female_percantage': countMalesAndFemales(clients_data)[1]
+            },
+            'ages_data': {
+                'group1': countAges(clients_data)[0], 
+                'group2': countAges(clients_data)[1], 
+                'group3': countAges(clients_data)[2], 
+                'group4': countAges(clients_data)[3]
+            },
+            'accumulate_data': {
+                'Jan': getNumOfClientsByMonth(clients_data)[0], 
+                'Feb': getNumOfClientsByMonth(clients_data)[1], 
+                'Mar': getNumOfClientsByMonth(clients_data)[2], 
+                'Apr': getNumOfClientsByMonth(clients_data)[3], 
+                'May': getNumOfClientsByMonth(clients_data)[4], 
+                'Jun': getNumOfClientsByMonth(clients_data)[5], 
+                'Jul': getNumOfClientsByMonth(clients_data)[6], 
+                'Aug': getNumOfClientsByMonth(clients_data)[7], 
+                'Sep': getNumOfClientsByMonth(clients_data)[8], 
+                'Oct': getNumOfClientsByMonth(clients_data)[9], 
+                'Nov': getNumOfClientsByMonth(clients_data)[10], 
+                'Dec': getNumOfClientsByMonth(clients_data)[11]
+            }
+        },
+        'finances_data': {
+            'profit_data': {
+                'Jan': getProfitAndDamages(finance_data)[0], 
+                'Feb': getProfitAndDamages(finance_data)[1], 
+                'Mar': getProfitAndDamages(finance_data)[2], 
+                'Apr': getProfitAndDamages(finance_data)[3], 
+                'May': getProfitAndDamages(finance_data)[4], 
+                'Jun': getProfitAndDamages(finance_data)[5], 
+                'Jul': getProfitAndDamages(finance_data)[6], 
+                'Aug': getProfitAndDamages(finance_data)[7], 
+                'Sep': getProfitAndDamages(finance_data)[8], 
+                'Oct': getProfitAndDamages(finance_data)[9], 
+                'Nov': getProfitAndDamages(finance_data)[10], 
+                'Dec': getProfitAndDamages(finance_data)[11]
+            },
+            'damages_data': {
+                'Jan': getProfitAndDamages(finance_data)[12], 
+                'Feb': getProfitAndDamages(finance_data)[13], 
+                'Mar': getProfitAndDamages(finance_data)[14], 
+                'Apr': getProfitAndDamages(finance_data)[15], 
+                'May': getProfitAndDamages(finance_data)[16], 
+                'Jun': getProfitAndDamages(finance_data)[17], 
+                'Jul': getProfitAndDamages(finance_data)[18], 
+                'Aug': getProfitAndDamages(finance_data)[19], 
+                'Sep': getProfitAndDamages(finance_data)[20], 
+                'Oct': getProfitAndDamages(finance_data)[21], 
+                'Nov': getProfitAndDamages(finance_data)[22], 
+                'Dec': getProfitAndDamages(finance_data)[23]
+            }
+        }       
+    })
+    return api_data
+
 @app.route('/workouts', methods=['GET', 'POST'])
 def workouts():
     return render_template('workouts.html', title='Тренировки')
